@@ -32,7 +32,7 @@ asyncio.Semaphore()值最好设置为较小量(不超过100)，以防网站崩�
 sem = asyncio.Semaphore(60)
 ```
 
-## run
+## Run
 ``` bash
 python stats_gov_2.py
 ```
