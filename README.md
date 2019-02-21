@@ -18,13 +18,10 @@
 代码基于python3.6
 - [**python3.6.6**](https://www.python.org/downloads/release/python-366/) ：python 官网下载，选择适合的版本；
 
-如果平台为windows 64位，依赖库使用**命令.txt**中命令安装即可。
+如果平台为windows 64位，依赖库使用**命令.txt**中命令安装即可。其他平台，使用命令自行下载安装依赖库
 ``` bash
-pip install --no-index --find-links=.\pack -r requirements.txt
-```
-其他平台，使用命令自行下载安装依赖库
-``` bash
-pip install -r requirements.txt
+pip install --no-index --find-links=.\pack -r requirements.txt  #windows 64位
+pip install -r requirements.txt                                 #其他平台
 ```
 
 asyncio.Semaphore()值最好设置为较小量(不超过100)，以防网站崩溃。
