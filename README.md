@@ -1,6 +1,8 @@
 # stats_gov
-统计局网站的数据汇总(http://www.stats.gov.cn/tjsj/tjbz/tjyqhdmhcxhfdm/2018/)。
-细粒度，到最后一级(一般为5级，网站上少部分地区为4级)。数据编码格式为utf8，以便显示名称中的生僻字，请使用合适的文本工具打开。</br>
+统计局网站的数据汇总(http://www.stats.gov.cn/tjsj/tjbz/tjyqhdmhcxhfdm/2018/)。</br>
+细粒度，到最后一级(一般为5级，网站上少部分地区为4级)。</br>
+数据编码格式为utf8，以便显示名称中的生僻字，请使用合适的文本工具打开。</br>
+
 这里有python爬虫代码和所需库。爬取速度快，网速较好时10分钟左右。
 
 ## Results
