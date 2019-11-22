@@ -1,10 +1,13 @@
 import functools, os, time, aiohttp, asyncio, random, re, csv, urllib.parse
 import datetime as dt
 from bs4 import BeautifulSoup
+from fake_useragent import UserAgent
+
 
 DEBUG = False
 
 HTML_ENCODEING = 'gb18030'
+USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.80 Safari/537.36'
 BASE_PATH = '../China_Province_2018/'
 if not os.path.isdir(BASE_PATH):
     os.mkdir(BASE_PATH)
@@ -22,7 +25,7 @@ async def get_html(sem, url, handle, result, counter=None):
             while True:
                 status = -1
                 try:
-                    async with session.get(url, headers={'user-agent': 'Mozilla/5.0'}, timeout=20) as resp:
+                    async with session.get(url, headers={'user-agent': ua.random}, timeout=20) as resp:
                         if resp.status != 200:
                             status = resp.status
                             raise Exception(str(status))
@@ -35,8 +38,18 @@ async def get_html(sem, url, handle, result, counter=None):
                             except aiohttp.ClientPayloadError as e:
                                 raise e
                             except (UnicodeDecodeError, UnicodeEncodeError) as e:
-                                print(repr(e))
-                                exit(0)
+                                try:
+                                    t = await resp.text('utf-8',errors='ignore')
+                                except Exception as e:
+                                    print(repr(e))
+                                    exit(0)
+                                else:
+                                    if '请开启JavaScript并刷新该页' in t:
+                                        raise Exception('请开启JavaScript并刷新该页')
+                                    else:
+                                        print(t)
+                                        print('解码页面时出错，请查看提示信息。url({})'.format(url))
+                                        exit(0)
                             except Exception as e:
                                 print('@' * 100)
                                 raise e
@@ -149,11 +162,12 @@ def main():
     result.extend(temp)
     result.sort()
     with open(os.path.join(BASE_PATH, 'csv_{}.csv'.format(dt.datetime.now().strftime("%Y%m%d%H%M"))), 'w',
-              newline='', encoding='utf-8') as f:
+              newline='', encoding='utf-8-sig') as f:
         writer = csv.writer(f)
         for row in result:
             writer.writerow(row)
 
 
 if __name__ == '__main__':
+    ua = UserAgent(use_cache_server=False)
     main()
