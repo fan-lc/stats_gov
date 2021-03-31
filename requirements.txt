@@ -6,7 +6,7 @@ chardet==3.0.4
 fake-useragent==0.1.11
 idna==2.8
 idna-ssl==1.1.0
-lxml==4.4.1
+lxml==4.6.3
 multidict==4.6.1
 soupsieve==1.9.5
 typing-extensions==3.7.4.1
